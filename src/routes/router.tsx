@@ -1,15 +1,22 @@
-import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { PATHS } from '@/lib/constants';
 import HomeLayout from '@/layouts/HomeLayout';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { LoginPage, RegisterPage } from '@/pages';
+import { LandingPage, LoginPage, RegisterPage } from '@/pages';
 import AuthLayout from '@/layouts/AuthLayout';
+import ErrorPage from '@/pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: PATHS.home,
     element: <HomeLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        element: <LandingPage />,
+        index: true,
+      },
+    ],
   },
   {
     element: <AuthLayout />,

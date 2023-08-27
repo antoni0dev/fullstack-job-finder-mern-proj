@@ -1,5 +1,6 @@
 module.exports = {
   env: {
+    node: true,
     browser: true,
     es6: true,
   },
@@ -7,13 +8,14 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
   ],
   overrides: [
     {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{s,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
