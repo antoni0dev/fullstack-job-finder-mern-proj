@@ -1,16 +1,33 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { PATHS } from '../lib/constants';
-import HomeLayout from '../layouts/HomeLayout';
-
-// RRD 6.4 bought two new cool things
-// loaders - allow to pre-load the data
-// actions - allow us to handle the form submissions
+import { PATHS } from '@/lib/constants';
+import HomeLayout from '@/layouts/HomeLayout';
+import DashboardLayout from '@/layouts/DashboardLayout';
+import { LoginPage, RegisterPage } from '@/pages';
+import AuthLayout from '@/layouts/AuthLayout';
 
 const router = createBrowserRouter([
   {
     path: PATHS.home,
     element: <HomeLayout />,
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: PATHS.register,
+        element: <RegisterPage />,
+      },
+      {
+        path: PATHS.login,
+        element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: PATHS.dashboard,
+    element: <DashboardLayout />,
+    children: [],
   },
 ]);
 
