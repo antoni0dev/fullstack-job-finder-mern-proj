@@ -12,7 +12,7 @@ const ErrorPage = () => {
         <img src={img} alt="error image for 404 errors" />
         <h3>Ohh! Page not found</h3>
         <p>We can&apos;t find the page you are looking for...</p>
-        <Link to={PATHS.dashboard}>Go to dashboard</Link>
+        <Link to={PATHS.dashboard}>Go to Dashboard</Link>
       </div>
     </Wrapper>
   ) : (
