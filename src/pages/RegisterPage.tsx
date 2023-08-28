@@ -1,90 +1,89 @@
-import { PATHS } from '@/lib/constants';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import Wrapper from '@/assets/wrappers/RegisterAndLoginPage';
-import { Logo } from '@/components';
-import FormRow from '@/components/FormRow';
-import { useForm } from 'react-hook-form';
-import {
-  registrationSchema,
-  RegistrationType,
-} from '@/lib/models/registrationSchema';
+import { RegistrationType } from '@/lib/models/registrationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Message } from '@/components';
+import Wrapper from '@/assets/wrappers/RegisterAndLoginPage';
+import { registrationSchema } from '@/lib/models/registrationSchema';
+import { PATHS } from '@/lib/constants';
 
 const RegisterPage = () => {
   const {
+    register,
     handleSubmit,
-    control,
-    formState: { errors, isValid, isDirty },
+    formState: { isValid, isDirty, errors },
   } = useForm<RegistrationType>({
     resolver: zodResolver(registrationSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      location: '',
-      email: '',
-      password: '',
-    },
     mode: 'onBlur',
   });
 
-  const onSubmit = () => {
-    console.log('You need to implement submit logic for reg form');
+  const onSubmit: SubmitHandler<RegistrationType> = (data) => {
+    console.log(data);
   };
 
   return (
     <Wrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <Logo />
         <h4>Register</h4>
-        <FormRow
-          type="text"
-          name="firstName"
-          control={control}
-          required
-          error={errors.firstName}
-        />
-        <FormRow
-          type="text"
-          name="lastName"
-          control={control}
-          required
-          error={errors.lastName}
-        />
-        <FormRow
-          type="number"
-          name="age"
-          control={control}
-          required
-          error={errors.age}
-        />
-        <FormRow
-          type="text"
-          name="location"
-          control={control}
-          required
-          error={errors.location}
-        />
-        <FormRow
-          type="email"
-          name="email"
-          control={control}
-          required
-          error={errors.email}
-        />
-        <FormRow
-          type="password"
-          name="password"
-          control={control}
-          required
-          error={errors.password}
-        />
+        <div className="form-row">
+          <label className="form-label" htmlFor="firstName">
+            First Name
+          </label>
+          <input
+            {...register('firstName')}
+            type="text"
+            className="form-input"
+          />
+          {errors.firstName && errors.firstName.message && (
+            <Message variant="error" message={errors.firstName.message} />
+          )}
+        </div>
+
+        <div className="form-row">
+          <label className="form-label" htmlFor="lastName">
+            Last Name
+          </label>
+          <input {...register('lastName')} type="text" className="form-input" />
+          {errors.lastName && errors.lastName.message && (
+            <Message variant="error" message={errors.lastName.message} />
+          )}
+        </div>
+
+        <div className="form-row">
+          <label className="form-label" htmlFor="email">
+            Email
+          </label>
+          <input {...register('email')} type="email" className="form-input" />
+          {errors.email && errors.email.message && (
+            <Message variant="error" message={errors.email.message} />
+          )}
+        </div>
+
+        <div className="form-row">
+          <label className="form-label" htmlFor="password">
+            Password
+          </label>
+          <input
+            {...register('password')}
+            type="password"
+            className="form-input"
+          />
+          {errors.password && errors.password.message && (
+            <Message variant="error" message={errors.password.message} />
+          )}
+        </div>
+
         <button className="btn" type="submit" disabled={!isValid || !isDirty}>
-          Submit
+          Submitx
         </button>
+        <p>
+          Already have an account{' '}
+          <Link to={PATHS.login}>
+            <span>Login</span>
+          </Link>{' '}
+          now.
+        </p>
       </form>
-      <p>
-        Already a user? <Link to={PATHS.login}>Login</Link>
-      </p>
     </Wrapper>
   );
 };
