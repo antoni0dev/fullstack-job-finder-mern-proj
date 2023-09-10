@@ -2,10 +2,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { RegistrationType } from '@/lib/models/registrationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Message } from '@/components';
 import Wrapper from '@/assets/wrappers/RegisterAndLoginPage';
 import { registrationSchema } from '@/lib/models/registrationSchema';
 import { PATHS } from '@/lib/constants';
+import FormRow from '@/components/FormRow';
 
 const RegisterPage = () => {
   const {
@@ -25,59 +25,57 @@ const RegisterPage = () => {
     <Wrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <h4>Register</h4>
-        <div className="form-row">
-          <label className="form-label" htmlFor="firstName">
-            First Name
-          </label>
-          <input
-            {...register('firstName')}
-            type="text"
-            className="form-input"
-          />
-          {errors.firstName && errors.firstName.message && (
-            <Message variant="error" message={errors.firstName.message} />
-          )}
-        </div>
+        <FormRow
+          label="First Name"
+          name="firstName"
+          register={register}
+          error={errors.firstName}
+        />
+        <FormRow
+          label="Last Name"
+          name="lastName"
+          register={register}
+          error={errors.lastName}
+        />
 
-        <div className="form-row">
-          <label className="form-label" htmlFor="lastName">
-            Last Name
-          </label>
-          <input {...register('lastName')} type="text" className="form-input" />
-          {errors.lastName && errors.lastName.message && (
-            <Message variant="error" message={errors.lastName.message} />
-          )}
-        </div>
+        <FormRow
+          label="Age"
+          name="age"
+          type="number"
+          register={register}
+          error={errors.age}
+        />
 
-        <div className="form-row">
-          <label className="form-label" htmlFor="email">
-            Email
-          </label>
-          <input {...register('email')} type="email" className="form-input" />
-          {errors.email && errors.email.message && (
-            <Message variant="error" message={errors.email.message} />
-          )}
-        </div>
+        <FormRow
+          label="Email"
+          name="email"
+          register={register}
+          error={errors.email}
+        />
 
-        <div className="form-row">
-          <label className="form-label" htmlFor="password">
-            Password
-          </label>
-          <input
-            {...register('password')}
-            type="password"
-            className="form-input"
-          />
-          {errors.password && errors.password.message && (
-            <Message variant="error" message={errors.password.message} />
-          )}
-        </div>
+        <FormRow
+          label="Location"
+          name="location"
+          register={register}
+          error={errors.location}
+        />
 
-        <button className="btn" type="submit" disabled={!isValid || !isDirty}>
-          Submitx
+        <FormRow
+          label="Password"
+          name="password"
+          register={register}
+          error={errors.password}
+        />
+
+        <button
+          className="btn btn-block"
+          type="submit"
+          disabled={!isValid || !isDirty}
+        >
+          Submit
         </button>
         <p>
-          Already have an account{' '}
+          Already have an account?{' '}
           <Link to={PATHS.login}>
             <span>Login</span>
           </Link>{' '}

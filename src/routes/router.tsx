@@ -2,7 +2,16 @@ import { createBrowserRouter } from 'react-router-dom';
 import { PATHS } from '@/lib/constants';
 import HomeLayout from '@/layouts/HomeLayout';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { LandingPage, LoginPage, RegisterPage } from '@/pages';
+import {
+  LandingPage,
+  LoginPage,
+  RegisterPage,
+  AddJobPage,
+  AllJobsPage,
+  StatsPage,
+  ProfilePage,
+  AdminPage,
+} from '@/pages';
 import AuthLayout from '@/layouts/AuthLayout';
 import ErrorPage from '@/pages/ErrorPage';
 
@@ -34,7 +43,28 @@ const router = createBrowserRouter([
   {
     path: PATHS.dashboard,
     element: <DashboardLayout />,
-    children: [],
+    children: [
+      {
+        index: true,
+        element: <AddJobPage />,
+      },
+      {
+        path: PATHS.stats,
+        element: <StatsPage />,
+      },
+      {
+        path: PATHS.profile,
+        element: <ProfilePage />,
+      },
+      {
+        path: PATHS.admin,
+        element: <AdminPage />,
+      },
+      {
+        path: PATHS.allJobs,
+        element: <AllJobsPage />,
+      },
+    ],
   },
 ]);
 

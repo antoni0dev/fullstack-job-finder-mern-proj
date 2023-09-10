@@ -3,4 +3,8 @@ export const PATHS = {
   dashboard: '/dashboard',
   register: '/register',
   login: '/login',
+  stats: '/dashboard/stats',
+  profile: '/dashboard/profile',
+  admin: '/dashboard/admin',
+  allJobs: '/dashboard/all-jobs',
 };

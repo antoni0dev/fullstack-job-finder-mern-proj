@@ -2,10 +2,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { LoginType } from '@/lib/models/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Message } from '@/components';
 import Wrapper from '@/assets/wrappers/RegisterAndLoginPage';
 import { loginSchema } from '@/lib/models/loginSchema';
 import { PATHS } from '@/lib/constants';
+import FormRow from '@/components/FormRow';
+import { Logo } from '@/components';
 
 const LoginPage = () => {
   const {
@@ -26,36 +27,35 @@ const LoginPage = () => {
   return (
     <Wrapper>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <Logo />
+
         <h4>Login</h4>
-        <div className="form-row">
-          <label className="form-label" htmlFor="email">
-            Email
-          </label>
-          <input {...register('email')} type="email" className="form-input" />
-          {errors.email && errors.email.message && (
-            <Message variant="error" message={errors.email.message} />
-          )}
-        </div>
+        <FormRow
+          label="Email"
+          name="email"
+          type="email"
+          register={register}
+          error={errors.email}
+        />
 
-        <div className="form-row">
-          <label className="form-label" htmlFor="password">
-            Password
-          </label>
-          <input
-            {...register('password')}
-            type="password"
-            className="form-input"
-          />
-          {errors.password && errors.password.message && (
-            <Message variant="error" message={errors.password.message} />
-          )}
-        </div>
+        <FormRow
+          label="Password"
+          name="password"
+          type="password"
+          register={register}
+          error={errors.password}
+        />
 
-        <button className="btn" type="submit" disabled={!isValid || !isDirty}>
+        <button
+          className="btn btn-block"
+          type="submit"
+          disabled={!isValid || !isDirty}
+        >
           Submit
         </button>
+        <button className="btn btn-block">Explore the app</button>
         <p>
-          New to this?{' '}
+          New member?
           <Link to={PATHS.register}>
             <span>Register</span>
           </Link>{' '}
